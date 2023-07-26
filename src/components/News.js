@@ -1,8 +1,25 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+import { ReactPropTypes } from 'react';
+import PropTypes from 'prop-types';
 //import Spinner from './Spinner';
-
+//business entertainment general health science sports technology
 export class News extends Component {
+  static defaultProps={
+    country:"in",
+    pageSize:8,
+    category: "general",
+
+  }
+  static propTypes={
+    country:PropTypes.string,
+    pageSize:PropTypes.number,
+    category:PropTypes.string,
+  }
+
+
+
+
   constructor() {
     super();
     this.state = {
@@ -13,7 +30,7 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let url= `https://newsapi.org/v2/everything?q=astronomy&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=1&pagesize=${this.props.pageSize}`;
+    let url= `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&category=${this.props.category}&apikey=fb4fb0eb46734404b1f4ab75758327be&page=1&pagesize=${this.props.pageSize}`;
     //this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -23,7 +40,7 @@ export class News extends Component {
   }
 
   handlePrevClick= async()=>{
-    let url = `https://newsapi.org/v2/everything?q=astronomy&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=${this.state.page -1}&pagesize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&category=${this.props.category}&apikey=fb4fb0eb46734404b1f4ab75758327be&page=1&pagesize=${this.props.pageSize}`;
     //this.setState({loading:false});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -34,7 +51,7 @@ export class News extends Component {
     })
   }
   handleNextCLick= async ()=>{
-    let url = `https://newsapi.org/v2/everything?q=astronomy&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=${this.state.page +1}&pagesize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&category=${this.props.category}&apikey=fb4fb0eb46734404b1f4ab75758327be&page=1&pagesize=${this.props.pageSize}`;
     //this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
