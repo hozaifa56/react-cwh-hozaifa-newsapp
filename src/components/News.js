@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+//import Spinner from './Spinner';
 
 export class News extends Component {
   constructor() {
@@ -12,14 +13,18 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=1&pagesize=${this.props.pageSize}`;
+    let url= `https://newsapi.org/v2/everything?q=astronomy&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=1&pagesize=${this.props.pageSize}`;
+    //this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
-    this.setState({ articles: parsedData.articles,totalArticles:parsedData.totalResults })
+    this.setState({ articles: parsedData.articles,
+      totalArticles:parsedData.totalResults,
+    /*loading:false*/ })
   }
 
   handlePrevClick= async()=>{
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=${this.state.page -1}&pagesize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/everything?q=astronomy&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=${this.state.page -1}&pagesize=${this.props.pageSize}`;
+    //this.setState({loading:false});
     let data = await fetch(url);
     let parsedData = await data.json();
 
@@ -29,30 +34,28 @@ export class News extends Component {
     })
   }
   handleNextCLick= async ()=>{
-    if(this.state.page+1>Math.ceil(this.state.totalResults/{this.props.pageSize})){
-
-    }
-    else{
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=${this.state.page +1}&pagesize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/everything?q=astronomy&apiKey=fb4fb0eb46734404b1f4ab75758327be&page=${this.state.page +1}&pagesize=${this.props.pageSize}`;
+    //this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
 
     this.setState({
       page:this.state.page+1,
       articles: parsedData.articles,
-    })  }
+    })  
   }
 
   render() {
     return (
       <div className='container my-3'>
-        <h2>NewsMonkey Topheadlines</h2>
-
+        <h2 className="text-center" style={{color:"white"}}>AstroNewsify Topheadlines</h2>
+        {/*{this.state.loading && <Spinner/>}*/}
         <div className='row'>
+        {/*{!this.state.loading && this.state.articles.map((element) => {*/}
           {this.state.articles.map((element) => {
-            return (<div className='col-md-4' key={element.url}>
+            return (<div className='col-md-3' key={element.url}>
               <NewsItem title={element.title ? element.title : ""} description={element.description ? element.description.slice(0, 88) : ""}
-                imageUrl={element.urlToImage} newsUrl={element.url} />
+                imageUrl={element.urlToImage?element.urlToImage:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUKdAVuCuYh6eMXkQhApiZIFXu1hZFgma8_53yie1LPSaq1qoUodm5e2SFog&s"} newsUrl={element.url} />
             </div>);
           })}
 
@@ -60,7 +63,7 @@ export class News extends Component {
         <div className="d-flex justify-content-between">
           <button disabled={this.state.page<=1} type="button" className="btn btn-primary btn-sm mx-2" onClick={this.handlePrevClick}>
             <span>&#8592;</span>Previous</button>
-          <button disabled={this.state.page+1 > Math.ceil(this.state.totalResults/{this.props.pageSize})} type="button" className="btn btn-primary btn-sm mx-2" onClick={this.handleNextCLick}>Next<span>&#8594;</span></button>
+          <button  type="button" className="btn btn-primary btn-sm mx-2" onClick={this.handleNextCLick}>Next<span>&#8594;</span></button>
 
         </div>
       </div>
