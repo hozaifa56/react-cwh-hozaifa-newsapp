@@ -65,14 +65,14 @@ export class News extends Component {
   render() {
     return (
       <div className='container my-3'>
-        <h2 className="text-center" style={{color:"white"}}>AstroNewsify Topheadlines</h2>
+        <h2 className="text-center" style={{color:"white"}}>NewsMonkey Topheadlines</h2>
         {/*{this.state.loading && <Spinner/>}*/}
         <div className='row'>
         {/*{!this.state.loading && this.state.articles.map((element) => {*/}
           {this.state.articles.map((element) => {
             return (<div className='col-md-3' key={element.url}>
               <NewsItem title={element.title ? element.title : ""} description={element.description ? element.description.slice(0, 88) : ""}
-                imageUrl={element.urlToImage?element.urlToImage:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUKdAVuCuYh6eMXkQhApiZIFXu1hZFgma8_53yie1LPSaq1qoUodm5e2SFog&s"} newsUrl={element.url} />
+                imageUrl={element.urlToImage?element.urlToImage:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUKdAVuCuYh6eMXkQhApiZIFXu1hZFgma8_53yie1LPSaq1qoUodm5e2SFog&s"} newsUrl={element.url} author={element.author} date={element.publishedAt} />
             </div>);
           })}
 
