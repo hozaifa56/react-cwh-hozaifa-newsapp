@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-export class Navbar extends Component {
-    render() {
+const Navbar=(props)=>{
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-success container-fluid">
@@ -13,7 +12,7 @@ export class Navbar extends Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <a className="nav-link " aria-current="page" href="#">Home</a>
+                                    <Link className="nav-link " aria-current="page" to="/general">Home</Link>
                                 </li>
 
                                 <li className="nav-item">
@@ -41,6 +40,5 @@ export class Navbar extends Component {
             </div>
         )
     }
-}
 
 export default Navbar
